@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Inventory</h1>
+    <div id="container"></div>
+    <button id="remove" onclick="remove()">Remove</button> 
+</body>
+</html>
+<script>
+
+let append = (data) =>{
+
+    let cont = document.getElementById("container")
+   data.forEach((el,index) =>{
+    let image = document.createElement("img");
+    image.src= el.image;
+    let name = document.createElement("p")
+    name.innerText = el.name
+    let price = document.createElement("p")
+    price.innerText = el.price;
+    let button = document.createElement("button")
+    button.innerText = "Remove"
+    button.onclick = () =>{
+        remove(index)
+    }
+
+    let div = document.createElement("div")
+    div.append(image,name,price,button)
+    cont.append(div)
+
+
+   })
+   }
+
+
+
+   let main = () =>{
+    let data = JSON.parse(localStorage.getItem("data"))
+
+    append(data)
+   }
+
+   let remove = (index) =>{
+    let data = JSON.parse(localStorage.getItem("data"))
+    console.log(index)
+
+    console.log(data.slice(index,1))
+   }
+
+   main();
+
+   
+
+
+
+
+
+</script>
