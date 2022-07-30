@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: grey;
+      }
+    </style>
+  </head>
+  <body></body>
+  <script>
+    function customArray() {
+      Object.defineProperty(this, "length", {
+        value: 0,
+        writable: true,
+        enumerable: false,
+      });
+
+      this.length = arguments.length;
+
+      for (let i = 0; i < this.length; i++) {
+        this[i] = arguments[i];
+      }
+    }
+
+    // push
+    customArray.prototype.अंदर_चल = function (value) {
+      let lastPush = this.length;
+      this[lastPush] = value;
+      this.length++;
+    };
+
+    let a1 = new customArray(10, 20, 30, 40, 50);
+    a1.अंदर_चल("a");
+
+    console.log("अंदर_चल:", Object.values(a1));
+
+    // ===================================================
+    // pop
+    customArray.prototype.बहार_निकल = function () {
+      let lastPop = this.length - 1;
+      delete this[lastPop];
+      this.length--;
+    };
+
+    a1.बहार_निकल();
+    console.log("बहार_निकल:", Object.values(a1));
+
+    // =======================================================
+    // top
+    customArray.prototype.ऊपर_का = function () {
+      let last = this.length - 1;
+
+      console.log("ऊपर_का:", this[last]);
+    };
+
+    a1.ऊपर_का();
+
+    // =========================================================
+    // print arr
+    customArray.prototype.छापो = function () {
+      console.log("छापो:", Object.values(this));
+    };
+
+    a1.छापो();
+
+    // ====================================================
+    // reverse
+    customArray.prototype.उलटा = function () {
+      let a2 = new customArray();
+      for (let i = this.length - 1; i >= 0; i--) {
+        a2.अंदर_चल(this[i]);
+      }
+      console.log("उलटा:", Object.values(a2));
+    };
+    a1.उलटा();
+
+    // ====================================================
+    //size
+    customArray.prototype.आकार = function () {
+      let long = this.length;
+      console.log("आकार:", long);
+    };
+    a1.आकार();
+
+    console.log(a1.__proto__);
+  </script>
+</html>
