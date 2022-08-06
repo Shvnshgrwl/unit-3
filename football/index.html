@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select name="" id="team-1" onchange="selectTeam1()">
+    <option value="Barcelona">Barcelona</option>
+    <option value="AC Milan">AC Milan</option>
+    </select>
+    <select name="" id="year" onchange="selectYear()">
+    <option value="2011">2011</option>
+    <option value="2012">2012</option>
+    </select>
+</body>
+</html>
+<script>
+    let baseUrl = `https://jsonmock.hackerrank.com/api/football_matches?`;
+
+    let selectTeam1 = () => {
+        let value = document.getElementById("team-1").value;
+        baseUrl += `&team1=${value}`;
+        console.log(baseUrl)
+        window.open(baseUrl)
+    }
+    let selectTeam2 = () =>{
+        let value = document.getElementById("team-2").value;
+        if(baseUrl.includes (`&team2=${value}`)){
+            return
+        }
+
+        if(baseUrl.includes(``))baseUrl += `&team2=${value}`
+        console.log(baseUrl)
+        window.open(baseUrl)
+    }
+
+    let selectYear = () => {
+        let value = document.getElementById("year").value
+        baseUrl += `&year=${value}`
+        window.open(baseUrl)
+    }
+</script>
