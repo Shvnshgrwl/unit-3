@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Virtual MCdonald's</title>
+  </head>
+  <style>
+
+    body::-webkit-scrollbar {
+      width: 0.3em;
+    }
+    /* body::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 166, 0, 0.596);
+    } */
+    .order_list {
+      display: flex;
+      /* box-shadow: rgba(48, 29, 155, 0.61) 0px 48px 100px 0px; */
+      justify-content: space-around;
+      align-items: center;
+      height: 80px;
+      margin-bottom: 30px;
+    }
+    label {
+      font-size: 20px;
+      color: black;
+    }
+    input {
+      height: 15px;
+      width: 15px;
+    }
+    h1 {
+      box-shadow: rgba(218, 214, 214, 0.452) 0px 3px 8px;
+      padding: 1%;
+      border-radius: 10px;
+    }
+    button {
+      background-color: black;
+      padding: 10px 15px;
+      color: white;
+      border-radius: 5px;
+      border: none;
+      font-weight: bold;
+     
+    }
+    .timeNid {
+      width: 95%;
+      height: 50px;
+      display: flex;
+      margin: auto;
+      justify-content: space-between;
+      padding-left: 30px;
+      padding-right: 30px;
+      box-sizing: border-box;
+      align-items: center;
+    }
+    .timeNid > p {
+      font-size: 20px;
+    }
+    .orders {
+      width: 100%;
+      height: 180px;
+      margin-top: 0px;
+      text-align: center;
+      display: flex;
+      justify-content: space-around;
+    }
+    .gif {
+      width: 15%;
+      height: 200px;
+      margin: auto;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+
+    .orders > img {
+      height: 100%;
+      width: 16%;
+      border-radius: 5px;
+      /* box-shadow: rgba(57, 54, 228, 0.562) 0px 13px 27px -5px,
+        rgba(31, 58, 212, 0.555) 0px 8px 16px -8px; */
+    }
+    #last {
+      text-align: center;
+    }
+    #navbar{
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid black;
+      padding: 10px;
+    }
+  </style>
+  <body>
+    <div id="navbar">
+      <h3>
+        <a href="index.html">Home</a>
+      </h3>
+      <h3>
+        <a href="login.html">Log In</a>
+      </h3>
+      <h3>
+        <a href="signup.html">Sign Up </a>
+      </h3>
+
+    </div>
+    <div class="order_list">
+      <h1>Order Your Food</h1>
+      <label for="burger"
+        ><input type="checkbox" id="burger" value="Burger" /> Burger</label
+      >
+      <br />
+      <label for="fries"
+        ><input type="checkbox" id="fries" value="French Fries" /> French
+        Fries</label
+      >
+      <br />
+      <label for="coke"
+        ><input type="checkbox" id="coke" value="Cold Drink" /> Cold
+        Drink</label
+      >
+      <br />
+      <label for="ice_cream"
+        ><input type="checkbox" id="ice_cream" value="Ice Cream" /> Ice
+        Cream</label
+      >
+      <br />
+      <button type="submit" onclick="orderFood()">Order Now</button>
+    </div>
+    <div class="timeNid">
+      <p id="time"></p>
+      <p id="orderID"></p>
+    </div>
+    <div class="gif">
+      <img />
+    </div>
+    <div class="orders"></div>
+    <h4 id="last"></h4>
+  </body>
+</html>
+<script src="./scripts/index.js" type="module">
+
+</script>
+<script>
+  let id = 1;
+
+  let img1 = document.createElement("img");
+  let img2 = document.createElement("img");
+  let img3 = document.createElement("img");
+  let img4 = document.createElement("img");
+  let gif = document.querySelector(".gif > img");
+  let bigbox = document.querySelector(".orders");
+  let last = document.querySelector("#last");
+
+  function orderFood() {
+    last.innerHTML = null;
+    bigbox.innerHTML = null;
+
+    let items = document.getElementsByTagName("input");
+    let order_list = [];
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].checked) {
+        order_list.push(items[i].value);
+      }
+    }
+    let order = order_list;
+    if (order.length !== 0) {
+      gif.src =
+        // "https://media2.giphy.com/media/gg8Q0J4HD2rFm5LTHe/200w.webp?cid=ecf05e47wlo6ilgd51c8ygmc9k6eyw2uv77eykdmtmsgd76m&rid=200w.webp&ct=g";
+    
+        "https://media1.giphy.com/media/pYdOBTm3kAdojJWxrp/200w.webp?cid=ecf05e478n8ibbb60uc2l5uy6d13twabpmvcrkaaiynkyvhz&rid=200w.webp&ct=g"
+    }
+
+    let time;
+    let mypromise = new Promise(function (res, err) {
+      time = Math.ceil(Math.random() * 10 * 1000);
+
+      setTimeout(() => {
+        res(order);
+      }, time);
+    });
+
+    //order time
+    let readytime;
+    if (order.length !== 0) {
+      readytime = document.querySelector("#time");
+      readytime.innerText = "";
+
+      let orderTime = (time / 1000).toFixed();
+      console.log(`${orderTime} sec`);
+
+      readytime.innerText = `Your Order Will be Ready in: ${orderTime} sec`;
+    }
+
+    //order id
+    if (order.length !== 0) {
+      console.log(id);
+      document.querySelector("#orderID").innerText = `Your Order ID: ${id}`;
+      id++;
+    }
+
+    //after processing of food
+    mypromise.then((res) => {
+      readytime.innerText = "!! Enjoy Your Happy Meal !!";
+
+      if (order.length !== 0) {
+        gif.src =
+        //   "https://media0.giphy.com/media/9Gp5ZwY8FRvna/200.webp?cid=ecf05e4767jnaks9fe975lbbud2bmo8d17b562aumk48piur&rid=200.webp&ct=g";
+      
+          "https://media4.giphy.com/media/lb5njh6zDXFauXpBtC/200w.webp?cid=ecf05e47gounad4d3cze8m2xe9z0ef0ruggm66fo7aztetoj&rid=200w.webp&ct=g";
+        }
+      //   console.log(res);
+      img1.src = "burger.jpg";
+      img2.src = "fries.jpg";
+      img3.src = "drink.jpg";
+      img4.src = "ice_cream.jpg";
+
+      for (let i = 0; i < res.length; i++) {
+        console.log(res[i]);
+        if (res[i] == "Burger") {
+          bigbox.append(img1);
+        } else if (res[i] == "French Fries") {
+          bigbox.append(img2);
+        } else if (res[i] == "Cold Drink") {
+          bigbox.append(img3);
+        } else if (res[i] == "Ice Cream") {
+          bigbox.append(img4);
+        }
+      }
+
+      document.querySelector("#last").innerText = "** Thanks for Ordering **";
+    });
+  }
+  function appendData(data) {}
+</script>
